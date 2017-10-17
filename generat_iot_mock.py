@@ -22,7 +22,7 @@ for fleet in fleets:
     ini_mil = initial_mileage_vals[fleet]
     print("initial mileage of fleet is: ", ini_mil)
     mile_array = []
-    for num in range(0,361):
+    for num in range(0,359):
         current_mil = ini_mil +  (float(rd.randint(35,65))/360.0)
         ini_mil = current_mil
         mile_array.append(current_mil)
@@ -30,7 +30,7 @@ for fleet in fleets:
     iot_vals = {"mil_data" : mile_array,"ter_data": terrain_array}
     iot_data[fleet] = iot_vals
 
-for i in range(0,361):
+for i in range(0,359):
     for fleet in fleets:
         iot_event = {"fleet" : fleet, "mileage": iot_data[fleet]['mil_data'][i], "terrain": iot_data[fleet]["ter_data"][i]}
         print(iot_event)
