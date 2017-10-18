@@ -10,11 +10,13 @@ import json
 iot = boto3.client('iot-data',region_name='us-west-2')
 dynamodb = boto3.resource('dynamodb',region_name='us-west-2')
 fleet_table = dynamodb.Table('Fleet-Details')
-response = fleet_table.scan()
+#response = fleet_table.scan()
 fleets = []
-for item in response['Items']:
-    fleets.append(item['serial-number'])
-print(fleets)
+#for item in response['Items']:
+#    fleets.append(item['serial-number'])
+#print(fleets)
+fleets.append("FL200")
+fleets.append("FL100")
 initial_mileage_vals = {"FL200" : 49500, "FL100": 27600}
 iot_data = {}
 for fleet in fleets:
