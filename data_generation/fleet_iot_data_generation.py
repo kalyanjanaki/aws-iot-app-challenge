@@ -7,6 +7,8 @@ import numpy as np
 import time
 import json
 import data_generation_utils
+import base64
+
 
 # Initiate the AWS IOT and AWS DynamoDb clinet
 iot = boto3.client('iot-data',region_name='us-west-2')
@@ -19,6 +21,9 @@ fleets = {}
 for item in response['Items']:
     fleets[item['serial-number']] = item['initialMileage']
 
+## Initialize the values for Road Image Generation
+image_array=np.random.choice([1,2,3], 720, replace=True, p=[0.8,0.15,0.05])
+
 ## Initialize the Initial values
 FL1502_distance=float(fleets['FL1502'])
 FL1000_distance=float(fleets['FL1000'])
@@ -30,8 +35,13 @@ for iter in range(8):
         temperature=data_generation_utils.get_temperature(i,temperature)
         FL1502_distance=data_generation_utils.get_distance(FL1502_distance,velocity)
         FL1000_distance=data_generation_utils.get_distance(FL1000_distance,velocity)
-        iot_event_1={'FLEET' : 'FL1502', 'MILEAGE' : FL1502_distance, 'VELOCITY' : velocity, 'TEMPERATURE' : temperature, 'LOAD': 35000}
-        iot_event_2={'FLEET' : 'FL1000', 'MILEAGE' : FL1000_distance, 'VELOCITY' : velocity, 'TEMPERATURE' : temperature, 'LOAD': 35000}
+        filename = 'images/terrain_' + str(image_array[i]) + '.jpg'
+        image = open(filename,'rb')
+        image_read = image.read()
+        image_64_encoded = base64.b64encode(image_read)
+        image.close() 
+        iot_event_1={'FLEET' : 'FL1502', 'MILEAGE' : FL1502_distance, 'VELOCITY' : velocity, 'TEMPERATURE' : temperature, 'LOAD': 35000 ,'IMAGE' : image_64_encoded}
+        iot_event_2={'FLEET' : 'FL1000', 'MILEAGE' : FL1000_distance, 'VELOCITY' : velocity, 'TEMPERATURE' : temperature, 'LOAD': 35000 ,'IMAGE' : image_64_encoded}
         print(iot_event_1)
         print(iot_event_2)
         response1 = iot.publish(topic='/fleet/device/data',payload=json.dumps(iot_event_1))
