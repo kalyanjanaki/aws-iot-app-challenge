@@ -63,13 +63,3 @@ def get_velocity(i,prev):
             return 0
         else:
             return val
-
-print("################Starting Outpu####################t")
-velocity = 0
-temperature = 70
-distance=10000
-for i in range(720):
-    velocity = get_velocity(i,velocity)
-    temperature = get_temperature(i,temperature)
-    distance = get_distance(distance,velocity)
-    print(i,velocity,temperature,distance)
