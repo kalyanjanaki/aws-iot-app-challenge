@@ -1,0 +1,280 @@
+<html>
+  <head>
+    <script type="text/javascript" src="http://pubnub.github.io/eon/v/eon/1.0.0/eon.js"></script>
+    <link type="text/css" rel="stylesheet" href="http://pubnub.github.io/eon/v/eon/1.0.0/eon.css"/>
+	
+	<style>
+	#wrap{width:100%; float:left; height: auto;}
+	#col-01, #col-02, #col-03{
+		height:auto;
+		 width:100%; float:left;}
+	.left25{width:25%; float:left;}
+	.right25{width:25%; float:left;}
+	.FR{text-align: center;
+    font-size: 22px;
+	color: red}
+	.RR{    text-align: center;
+    margin: 22px auto;
+    float: left;
+    width: 100%;}
+    
+}}
+	</style>
+	
+  </head>
+  <body>
+  <div id="wrap">
+  <div id="col-01">
+     <div class="left25"><div class="FR">FR</div><span id="chart1"></span></div>
+     <div class="right25"><div class="FR">FL</div><span id="chart2"></div>
+	 <div class="left25"><div class="FR">ML1</div><span id="chart3"></div>
+     <div class="right25"><div class="FR">ML2</div><span id="chart4"></div>
+	 
+  </div>
+    <div id="col-02">
+     <div class="left25"><div class="FR">MR1</div><span id="chart5"></div>
+     <div class="right25"><div class="FR">MR2</div><span id="chart6"></div>
+	 <div class="left25"><div class="FR">RL</div><span id="chart7"></div>
+     <div class="right25"><div class="FR">RR</div><span id="chart8"></div>
+  </div>
+ <div id="col-03"> <br>
+ <span class="RR">RR</span>
+	<div id="chart9"></div>
+  </div>
+  </div>
+    <script>
+
+      var pubnub = new PubNub({
+        publishKey: 'pub-c-eaf36626-1b19-4b11-aecb-d75bea103006',
+        subscribeKey: 'sub-c-a1a1d502-b5b9-11e7-af03-56d0cae65fed'
+      });
+
+      var channel = 'c3-gauge-kalyan-iot';
+
+      eon.chart({
+        pubnub: pubnub,
+        channels: ['kalyan-iot-FR'],
+        generate: {
+          bindto: '#chart1',
+          data: {
+            type: 'gauge'
+          },
+		  color: {
+			pattern: ['#FF0000', '#F6C600', '#60B044'],
+			threshold: {
+				values: [20, 40, 90]
+			}
+		  }		  
+        }
+      });
+
+      eon.chart({
+        pubnub: pubnub,
+        channels: ['kalyan-iot-FL'],
+        generate: {
+          bindto: '#chart2',
+          data: {
+            type: 'gauge'
+          },
+		  color: {
+			pattern: ['#FF0000', '#F6C600', '#60B044'],
+			threshold: {
+				values: [20, 40, 90]
+			}
+		  }		  
+        }
+      });
+	  
+      eon.chart({
+        pubnub: pubnub,
+        channels: ['kalyan-iot-ML1'],
+        generate: {
+          bindto: '#chart3',
+          data: {
+            type: 'gauge'
+          },
+		  color: {
+			pattern: ['#FF0000', '#F6C600', '#60B044'],
+			threshold: {
+				values: [20, 40, 90]
+			}
+		  }		  
+        }
+      });
+
+      eon.chart({
+        pubnub: pubnub,
+        channels: ['kalyan-iot-ML2'],
+        generate: {
+          bindto: '#chart4',
+          data: {
+            type: 'gauge'
+          },
+		  color: {
+			pattern: ['#FF0000', '#F6C600', '#60B044'],
+			threshold: {
+				values: [20, 40, 90]
+			}
+		  }		  
+        }
+      });	
+
+      eon.chart({
+        pubnub: pubnub,
+        channels: ['kalyan-iot-MR1'],
+        generate: {
+          bindto: '#chart5',
+          data: {
+            type: 'gauge'
+          },
+		  color: {
+			pattern: ['#FF0000', '#F6C600', '#60B044'],
+			threshold: {
+				values: [20, 40, 90]
+			}
+		  }		  
+        }
+      });
+
+      eon.chart({
+        pubnub: pubnub,
+        channels: ['kalyan-iot-MR2'],
+        generate: {
+          bindto: '#chart6',
+          data: {
+            type: 'gauge'
+          },
+		  color: {
+			pattern: ['#FF0000', '#F6C600', '#60B044'],
+			threshold: {
+				values: [20, 40, 90]
+			}
+		  }		  
+        }
+      });
+	  
+      eon.chart({
+        pubnub: pubnub,
+        channels: ['kalyan-iot-RL'],
+        generate: {
+          bindto: '#chart7',
+          data: {
+            type: 'gauge'
+          },
+		  color: {
+			pattern: ['#FF0000', '#F6C600', '#60B044'],
+			threshold: {
+				values: [30, 60, 90]
+			}
+		  }		  
+        }
+      });
+
+      eon.chart({
+        pubnub: pubnub,
+        channels: ['kalyan-iot-RR'],
+        generate: {
+          bindto: '#chart8',
+          data: {
+            type: 'gauge'
+          },
+		  color: {
+			pattern: ['#FF0000', '#F6C600', '#60B044'],
+			threshold: {
+				values: [30, 60, 90]
+			}
+		  }
+        }
+      });	  	  
+
+eon.chart({
+  channels: ['iot-kalyan-velocity-aws'],
+  history: false,
+  flow: true,
+  pubnub: pubnub,
+  generate: {
+    bindto: '#chart9',
+    data: {
+      labels: false
+    }
+  }
+});
+    </script>
+    
+    <script>
+       pubnub.publish({
+    channel: 'kalyan-iot-FR',
+    message: {
+      eon: {
+        'data': 92
+      }
+    }
+  })
+
+  pubnub.publish({
+    channel: 'kalyan-iot-FL',
+    message: {
+      eon: {
+        'data': 81
+      }
+    }
+  })
+
+  pubnub.publish({
+    channel: 'kalyan-iot-ML1',
+    message: {
+      eon: {
+        'data': 32
+      }
+    }
+  })
+
+  pubnub.publish({
+    channel: 'kalyan-iot-ML2',
+    message: {
+      eon: {
+        'data': 55
+      }
+    }
+  })
+
+  pubnub.publish({
+    channel: 'kalyan-iot-MR1',
+    message: {
+      eon: {
+        'data': 22
+      }
+    }
+  })
+
+  pubnub.publish({
+    channel: 'kalyan-iot-MR2',
+    message: {
+      eon: {
+        'data': 98
+      }
+    }
+  })
+
+  pubnub.publish({
+    channel: 'kalyan-iot-RL',
+    message: {
+      eon: {
+        'data': 15
+      }
+    }
+  })
+
+  pubnub.publish({
+    channel: 'kalyan-iot-RR',
+    message: {
+      eon: {
+        'data': 63
+      }
+    }
+  })
+    </script>
+
+
+  </body>
+</html>
