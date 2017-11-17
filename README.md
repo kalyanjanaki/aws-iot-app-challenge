@@ -14,3 +14,6 @@ The application is built entirely using serverless architecture. Below are list 
 Below daigram explains the end to end technical architecture of the application.
 
 ![](io-app-challenge.jpg?raw=true)
+
+![](https://www.youtube.com/watch?v=XbeMDr0aOfU?raw=true)
+
