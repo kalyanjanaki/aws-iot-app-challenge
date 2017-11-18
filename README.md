@@ -11,6 +11,8 @@ The application is built entirely using serverless architecture. Below are list 
 * [AWS Rekognition](https://aws.amazon.com/rekognition/)
 * [Pubnub Visualization](https://www.pubnub.com/developers/eon/)
 
+The step by step instruction how to create the solution is availabel in the [Testing Instruction Doc](https://github.com/kalyanjanaki/aws-iot-app-challenge/blob/master/Testing-Instructions.docx)
+
 Below daigram explains the end to end technical architecture of the application.
 
 ![](io-app-challenge.jpg?raw=true)
